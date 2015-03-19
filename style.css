@@ -1,0 +1,114 @@
+/* checkbox - each time slot */
+.time-slot							 {  }
+
+/* hide the checbox itself - the label will be styled */
+.time-slot input			{
+	display:none;
+}
+
+/* default styling for our labels */
+.time-slot label			{
+	padding: 10px 20px;
+	color:#FFF;
+	cursor:pointer;
+	background:#EEE;
+	border-radius:5px;
+	transition:0.3s ease all;
+}
+
+/* if the label is checked */
+.time-slot input:checked ~ label {
+	background:#f2dede;
+	cursor:not-allowed;
+	animation:flashBooked 0.5s ease;
+}
+
+/* if the label is not checked */
+
+.time-slot input:not(:checked) ~ label {
+	background:#6AB074;
+	animation:flashAvailable 0.5s ease;
+}
+
+/* animation for the time slotto flash red */
+@keyframes flashBooked {
+	0%, 100% { background:#f2dede; transform:scale(1); }
+	50%			 { background:#F99090; transform:scale(1.5); }
+}
+
+/* animtion for the time slot to flash green */
+@keyframes flashAvailable {
+	0%, 100% { background:#6AB074; transform:scale(1); }
+	50%			 { background:rgb(119, 218, 78); transform:scale(1.5); }
+}
+
+body  															{ padding-top:20px; }
+
+#form-container											{ background:#2f2f2f; margin-bottom:20px; border-radius:5px; }
+#form-container .page-header  			{ background:#151515; margin:0; padding:30ps; border-top-left-radius:5px; 
+border-top-right-radius:5px; }
+
+/*numbered buttons*/
+#status-buttons											{  }
+#status-buttons a 									{ color:#FFF; display:inline-block; font-style:12px; margin-right:10px;
+text-align:center; text-transform:uppercase; }
+#status-buttons a:hover;						{ text-decoration:none; }
+
+#status-buttons span 								{ background:#080808; display:block; height:30px; margin:0; auto: 10px;
+padding-top:5px; width:30px; border-radius:50%; }
+
+#status-buttons a.active span 			{ background:#00BC8C; }
+
+#signup-form												{ position:relative; min-height:300px; overflow:hidden; padding:30px; }
+#form-views													{ width:auto; }
+
+#form-views.ng-enter,
+#form-views.ng-leave								{ position:absolute; left:30px; right:30px;
+transition: 0.5s all ease; -moz-transition:0.5s all ease, -webkit-transition:0.5s all ease;
+}
+
+#home-button												{ color:#FFF; font-style:12px; text-align:center; text-transform:uppercase; cursor: pointer; }
+
+
+#form-views.ng-enter								{
+	-webkit-animation:slideInright 0.5s both ease;
+	-moz-animation:slideInright 0.5s both ease;
+	animation:slideInright 0.5s both ease;
+}
+
+#form-views.ng-leave								{
+	-webkit-animation:slideOutLeft 0.5s both ease;
+	-moz-animation:slideOutLeft 0.5s both ease;
+	animation:slideOutLeft 0.5s both ease;
+}
+
+
+/*ANIMATIONS*/
+
+
+@keyframes slideOutLeft {
+    to      { transform: translateX(-200%); }
+}
+@-moz-keyframes slideOutLeft {  
+    to      { -moz-transform: translateX(-200%); }
+}
+@-webkit-keyframes slideOutLeft {
+    to      { -webkit-transform: translateX(-200%); }
+}
+
+@keyframes slideInRight {
+    from    { transform:translateX(200%); }
+    to      { transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+    from    { -moz-transform:translateX(200%); }
+    to      { -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInRight {
+    from    { -webkit-transform:translateX(200%); }
+    to      { -webkit-transform: translateX(0); }
+}
+
+
+
+
