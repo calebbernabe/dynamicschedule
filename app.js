@@ -69,10 +69,6 @@ scheduleApp.config(function($stateProvider, $urlRouterProvider ) {
     })
   }
 
-  $scope.showData = function(selectedSlot){
-    console.log =  selectedSlot 
-  }
-
   $scope.processForm = function() {
       alert('Appointment Booked!');
   };
