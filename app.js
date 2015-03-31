@@ -1,29 +1,22 @@
 var scheduleApp = angular.module('scheduleApp', ['firebase', 'ngAnimate', 'ui.router'])
-
-scheduleApp.service('Data', function($firebase){
-  return function(){ 
-    this.selectedSlot = null;
-  }
-})
-
-scheduleApp.config(function($stateProvider, $urlRouterProvider ) {
+scheduleApp.config(function($stateProvider, $urlRouterProvider) {
     
     $stateProvider
 
         .state('schedule', {
-          url: '/',
+          url: '/index',
           templateUrl: 'schedule.html',
           controller: 'mainController'
         })
-        .state('form', {
+       .state('form', {
             url: '/form',
             templateUrl: 'form.html',
-            controller: 'mainController'
+            controller: 'formController'
         })
         
         .state('form.profile', {
             url: '/profile',
-            templateUrl: 'form-profile.html',
+            templateUrl: 'form-profile.html'
         })
 
         .state('form.appointment', {
@@ -36,133 +29,125 @@ scheduleApp.config(function($stateProvider, $urlRouterProvider ) {
             templateUrl: 'form-confirmation.html'
         });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/index');
 })
 
 //schedule
 
-.controller('mainController', function($scope, $firebase, $state, Data){
+.controller('mainController', function($scope, $firebase){
 
-  var ref = new Firebase("https://angularschedule.firebaseio.com/days");
-  var fb = $firebase(ref);
+ var ref = new Firebase("https://angularschedule.firebaseio.com/days");
+ var fb = $firebase(ref);
 
-  var syncObject = fb.$asObject();
-  
-  syncObject.$bindTo($scope, 'days');
+ var syncObject = fb.$asObject();
+ 
+ syncObject.$bindTo($scope, 'days');
 
-    $scope.selectSlot = function(slot) {
-    Data.selectedSlot = slot;
-    $state.go('form.profile');
-  }
+ $scope.reset = function() {
 
-  var refs = new Firebase("https://angularschedule.firebaseio.com/booked");
-
-  $scope.selectedSlot = Data.selectedSlot;
-  $scope.addData = function(selectedSlot){
-    var slotrefs = refs.push({
-      booked: {
-        time: $scope.selectedSlot.time,
-        booked: $scope.selectedSlot.booked,
-        clientname: $scope.selectedSlot.name,
-        email: $scope.selectedSlot.email,
-        type: $scope.selectedSlot.type
-      }
-    })
-  }
-
-  $scope.showData = function(selectedSlot){
-    console.log =  selectedSlot 
-  }
-
-  $scope.processForm = function() {
-      alert('Appointment Booked!');
-  };
-
-  $scope.reset = function() {
-    refs.remove();
-    fb.$set({
-      monday: {
+   fb.$set({
+     monday: {
         name: 'Monday',
         slots: {
           900: {
             time: '9:00am',
+            booked: false,
+            name: 'Default'
           },
           0110: {
             time: '11:00am',
+            booked: false
           },
           100: {
             time: '1:00pm',
+            booked: false
           },
           300: {
             time: '3:00pm',
-          },
+           booked: false
+         },
           500: {
             time: '5:00pm',
+            booked: false
           },
           700: {
             time: '7:00pm',
+            booked: false
           }
-        }
+       }
       },
       tuesday: {
         name: 'Tuesday',
         slots: {
           900: {
             time: '9:00am',
-  
+            booked: false
           },
           0110: {
             time: '11:00am',
-  
+            booked: false
           },
           100: {
             time: '1:00pm',
-  
+            booked: false
           },
           300: {
             time: '3:00pm',
-  
+            booked: false
           },
           500: {
             time: '5:00pm',
-  
+            booked: false
           },
           700: {
             time: '7:00pm',
-  
+            booked: false
           }
-        }
+       }
       },
       wednesday: {
         name: 'Wednesday',
         slots: {
           900: {
             time: '9:00am',
-  
+            booked: false
           },
           0110: {
             time: '11:00am',
-  
+            booked: false
           },
           100: {
             time: '1:00pm',
-  
+            booked: false
           },
           300: {
             time: '3:00pm',
-  
+            booked: false
           },
           500: {
             time: '5:00pm',
-  
+            booked: false
           },
           700: {
             time: '7:00pm',
-  
-          }       
-        }
-      }
-    });
-  };
+            booked: false
+          }        
+       }
+     }
+   });
+
+ };
 });
-  
+
+// Form
+
+
+scheduleApp.controller('formController', function($scope) {
+
+    $scope.formData = { };
+
+    $scope.processForm = function() {
+        alert('Appointment Booked!');
+    };
+    
+});
