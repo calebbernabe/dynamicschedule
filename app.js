@@ -1,4 +1,6 @@
-cheduleApp.service('Data', function($firebase){ 
+var scheduleApp = angular.module('scheduleApp', ['firebase', 'ngAnimate', 'ui.router'])
+
+scheduleApp.service('Data', function($firebase){ 
   return function(){ 
     this.selectedSlot = null;
   }
