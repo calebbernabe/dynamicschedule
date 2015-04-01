@@ -18,7 +18,7 @@ scheduleApp.config(function($stateProvider, $urlRouterProvider ) {
         .state('form', {
             url: '/form',
             templateUrl: 'form.html',
-            controller: 'mainController'
+            controller: 'formController'
         })
         
         .state('form.profile', {
@@ -49,29 +49,10 @@ scheduleApp.config(function($stateProvider, $urlRouterProvider ) {
   
   syncObject.$bindTo($scope, 'days');
 
-    $scope.selectSlot = function(slot) {
+  $scope.selectSlot = function(slot) {
     Data.selectedSlot = slot;
     $state.go('form.profile');
   }
-
-  var refs = new Firebase("https://angularschedule.firebaseio.com/booked");
-
-  $scope.selectedSlot = Data.selectedSlot;
-  $scope.addData = function(selectedSlot){
-    var slotrefs = refs.push({
-      booked: {
-        time: $scope.selectedSlot.time,
-        booked: $scope.selectedSlot.booked,
-        clientname: $scope.selectedSlot.name,
-        email: $scope.selectedSlot.email,
-        type: $scope.selectedSlot.type
-      }
-    })
-  }
-
-  $scope.processForm = function() {
-      alert('Appointment Booked!');
-  };
 
   $scope.reset = function() {
     refs.remove();
@@ -159,5 +140,27 @@ scheduleApp.config(function($stateProvider, $urlRouterProvider ) {
       }
     });
   };
-});
+})
+
+.controller('formController', function($scope, $firebase, $state, Data){
+
+  var refs = new Firebase("https://angularschedule.firebaseio.com/booked");
+
+ $scope.selectedSlot = Data.selectedSlot;
+  $scope.addData = function(selectedSlot){
+    var slotrefs = refs.push({
+      booked: {
+        time: $scope.selectedSlot.time,
+        booked: $scope.selectedSlot.booked,
+        clientname: $scope.selectedSlot.name,
+        email: $scope.selectedSlot.email,
+        type: $scope.selectedSlot.type
+      }
+    })
+  }
+
+  $scope.processForm = function() {
+      alert('Appointment Booked!');
+  };
+})
   
